@@ -54,9 +54,15 @@
     "rimraf": "^2.5.2"
   },
   "dependencies": {
+    "es-dep-kit": "^1.0.1",
+    "es-dep-unit": "^2.0.0",
+    "es-deps-deep": "^1.0.2",
     "globby": "^4.0.0",
+    "load-json-file": "^1.1.0",
     "neat-contract": "^1.0.0",
     "pinkie-promise": "^2.0.1",
-    "ramda": "^0.21.0"
+    "pkg-entry": "^1.0.0",
+    "ramda": "^0.21.0",
+    "resolve-cwd": "^1.0.0"
   }
 }
