@@ -52,5 +52,11 @@
     "npm-run-all": "^1.5.1",
     "nyc": "^6.0.0",
     "rimraf": "^2.5.2"
+  },
+  "dependencies": {
+    "globby": "^4.0.0",
+    "neat-contract": "^1.0.0",
+    "pinkie-promise": "^2.0.1",
+    "ramda": "^0.21.0"
   }
 }
