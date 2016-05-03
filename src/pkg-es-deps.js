@@ -8,6 +8,7 @@ import Promise from 'pinkie-promise';
 import contract from 'neat-contract';
 import resolveCwd from 'resolve-cwd';
 import kit from 'es-dep-kit';
+import p from 'path';
 
 const deep = R.curryN(2, _deep);
 
@@ -15,16 +16,18 @@ const deep = R.curryN(2, _deep);
 const toPromise = Promise.resolve.bind(Promise);
 
 // pkgEsDeps :: void -> Promise Array[Object]
-function pkgEsDeps(file) {
+function pkgEsDeps(pkg) {
+  let resolvedPkg = '';
   return R.pipeP(toPromise,
-    contract('file', String),
+    contract('pkg', String),
     resolveCwd,
-    contract('file', String),
+    contract('pkg', String),
+    R.tap(_ => { resolvedPkg = _; }),
     loadJson,
     entry,
-    R.tap(console.log),
+    _ => p.resolve(p.dirname(resolvedPkg), _),
     deep(R.__, { excludeFn: kit.isThirdParty })
-  )(file);
+  )(pkg);
 }
 
 export default pkgEsDeps;
