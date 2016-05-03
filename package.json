@@ -2,11 +2,11 @@
   "name": "deplint",
   "version": "0.0.0",
   "description": "fix dependencies",
-  "main": "index.es5.js",
-  "jsnext:main": "index.js",
+  "main": "dist",
+  "jsnext:main": "src",
   "files": [
-    "index.es5.js",
-    "index.js"
+    "src",
+    "dist"
   ],
   "scripts": {
     "lint": "eslint .",
@@ -16,7 +16,7 @@
     "coveralls": "coveralls < coverage/lcov.info",
     "test": "ava --require babel-register",
     "tdd": "npm test -- --watch",
-    "transpile": "babel index.js --out-file index.es5.js",
+    "transpile": "babel src --out-dir dist",
     "prepublish": "npm run transpile",
     "clean": "rimraf index.es5.js",
     "push": "git push --follow-tags",
