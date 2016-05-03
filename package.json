@@ -6,8 +6,12 @@
   "jsnext:main": "src",
   "files": [
     "src",
-    "dist"
+    "dist",
+    "bin"
   ],
+  "bin": {
+    "deplint": "bin"
+  },
   "scripts": {
     "lint": "eslint .",
     "watch": "npm run transpile -- --watch",
