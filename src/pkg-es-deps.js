@@ -25,7 +25,6 @@ function pkgEsDeps(pkg) {
     R.tap(_ => { resolvedPkg = _; }),
     loadJson,
     entry,
-    R.tap(console.log),
     _ => p.resolve(p.dirname(resolvedPkg), _),
     deep(R.__, { excludeFn: kit.isThirdParty })
   )(pkg);
