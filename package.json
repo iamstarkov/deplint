@@ -2,8 +2,8 @@
   "name": "deplint",
   "version": "0.0.0",
   "description": "fix dependencies",
-  "main": "dist/pkg-es-deps",
-  "jsnext:main": "src/pkg-es-deps",
+  "main": "dist/cli",
+  "jsnext:main": "src/cli",
   "files": [
     "src",
     "dist",
