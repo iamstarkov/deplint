@@ -26,6 +26,7 @@ function pkgEsDeps(pkg) {
     loadJson,
     entry,
     _ => p.resolve(p.dirname(resolvedPkg), _),
+    R.of,
     deep(R.__, { excludeFn: kit.isThirdParty })
   )(pkg);
 }

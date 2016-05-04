@@ -60,7 +60,7 @@
   "dependencies": {
     "es-dep-kit": "^1.0.1",
     "es-dep-unit": "^2.0.0",
-    "es-deps-deep": "^1.0.2",
+    "es-deps-deep": "^2.0.0",
     "globby": "^4.0.0",
     "is-builtin-module": "^1.0.0",
     "load-json-file": "^1.1.0",
