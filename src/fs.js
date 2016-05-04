@@ -9,7 +9,11 @@ const toPromise = Promise.resolve.bind(Promise);
 // fs :: String -> Promise Array[String]
 const fs = R.unary(R.pipeP(toPromise,
   contract('path', String),
-  path => globby(['**/*.{js,json}', '!node_modules/**'], { cwd: path })
+  path => globby([
+    '**/*.{js,json}',
+    '!**/node_modules/**',
+    '!**/fixtures/**',
+  ], { cwd: path })
 ));
 
 export default fs;
