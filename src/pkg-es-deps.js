@@ -15,17 +15,22 @@ const deep = R.curryN(2, _deep);
 // toPromise :: a -> Promise a
 const toPromise = Promise.resolve.bind(Promise);
 
+// all :: [Promise] -> Promise
+const all = Promise.all.bind(Promise);
+
+// getEntry :: String -> Promise String
+const getEntry = R.pipeP(loadJson, entry);
+
+// resolvePath :: Promise... -> String
+const resolvePath = R.pipeP(R.unapply(all), R.apply(p.resolve));
+
 // pkgEsDeps :: void -> Promise Array[Object]
 function pkgEsDeps(pkg) {
-  let resolvedPkg = '';
   return R.pipeP(toPromise,
     contract('pkg', String),
     resolveCwd,
     contract('pkg', String),
-    R.tap(_ => { resolvedPkg = _; }),
-    loadJson,
-    entry,
-    _ => p.resolve(p.dirname(resolvedPkg), _),
+    R.converge(resolvePath, [p.dirname, getEntry]),
     R.of,
     deep(R.__, { excludeFn: kit.isThirdParty })
   )(pkg);
