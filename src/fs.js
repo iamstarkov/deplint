@@ -20,7 +20,10 @@ const allFiles = R.unary(R.pipeP(toPromise,
 const testFiles = R.unary(R.pipeP(toPromise,
   contract('path', String),
   path => globby([
-    '**/*.{js,json}',
+    'test.js',
+    '**/test/*.js',
+    '**/*.test.js',
+    '**/__test__/*.js',
     '!**/node_modules/**',
     '!**/fixtures/**',
   ], { cwd: path })
