@@ -7,9 +7,7 @@ import kit from 'es-dep-kit';
 import loadJsonFile from 'load-json-file';
 import isBuiltinModule from 'is-builtin-module';
 
-// fs('./')
-  // .then(console.log)
-  // .catch(console.error);
+const log = console.log;
 
 Promise.all([
   loadJsonFile('./package.json'),
@@ -22,9 +20,9 @@ Promise.all([
     .filter(kit.isResolved)
     .map(kit._resolved);
 
-  console.log('All files: ', allFiles.length);
-  console.log('Actually used files: ', actualUsedFiles.length);
-  console.log('');
+  log('Files')
+  log('  Prod', actualUsedFiles.length);
+  log('  Overall', allFiles.length);
 
   const allProdDeps = R.pipe(R.prop('dependencies'), R.keys)(pkg);
   const actualUsedModules = R.pipe(
@@ -34,7 +32,8 @@ Promise.all([
     R.reject(isBuiltinModule)
   )(deps);
 
-  console.log('All prod modules: ', allProdDeps.length);
-  console.log('Actually used prod modules: ', actualUsedModules.length);
+  log('Modules');
+  log('  Prod', actualUsedModules.length);
+  log('  Overall', allProdDeps.length);
 })
 .catch(console.error);
