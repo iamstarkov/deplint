@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import R from 'ramda';
 import Promise from 'pinkie-promise';
-import fs from './fs';
+import { allFiles } from './fs';
 import pkgEsDeps from './pkg-es-deps';
 import kit from 'es-dep-kit';
 import loadJsonFile from 'load-json-file';
@@ -11,18 +11,18 @@ const log = console.log;
 
 Promise.all([
   loadJsonFile('./package.json'),
-  fs('./'),
+  allFiles('./'),
   pkgEsDeps('./package.json'),
-]).then(([pkg, allFiles, deps]) => {
+]).then(([pkg, allFilesList, deps]) => {
   // console.log(pkg);
   const actualUsedFiles = deps
     .filter(R.either(kit.isEntry, kit.isRequestedLocalFile))
     .filter(kit.isResolved)
     .map(kit._resolved);
 
-  log('Files')
+  log('Files');
   log('  Prod', actualUsedFiles.length);
-  log('  Overall', allFiles.length);
+  log('  Overall', allFilesList.length);
 
   const allProdDeps = R.pipe(R.prop('dependencies'), R.keys)(pkg);
   const actualUsedModules = R.pipe(

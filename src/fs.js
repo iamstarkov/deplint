@@ -6,8 +6,8 @@ import Promise from 'pinkie-promise';
 // toPromise :: a -> Promise a
 const toPromise = Promise.resolve.bind(Promise);
 
-// fs :: String -> Promise Array[String]
-const fs = R.unary(R.pipeP(toPromise,
+// allFiles :: String -> Promise Array[String]
+const allFiles = R.unary(R.pipeP(toPromise,
   contract('path', String),
   path => globby([
     '**/*.{js,json}',
@@ -16,4 +16,14 @@ const fs = R.unary(R.pipeP(toPromise,
   ], { cwd: path })
 ));
 
-export default fs;
+// testFiles :: String -> Promise Array[String]
+const testFiles = R.unary(R.pipeP(toPromise,
+  contract('path', String),
+  path => globby([
+    '**/*.{js,json}',
+    '!**/node_modules/**',
+    '!**/fixtures/**',
+  ], { cwd: path })
+));
+
+export default { allFiles, testFiles };

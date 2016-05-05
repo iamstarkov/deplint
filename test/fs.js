@@ -1,5 +1,5 @@
 import test from 'ava';
-import fs from '../src/fs';
+import { allFiles, testFiles } from '../src/fs';
 
 const expected = [
   'index.js',
@@ -9,9 +9,9 @@ const expected = [
 ];
 
 test('fs', async t => {
-  const _ = await fs('./fixtures/fs');
+  const _ = await allFiles('./fixtures/fs');
   t.deepEqual(_, expected);
 });
 
-test('empty input', t => t.throws(fs(), TypeError));
-test('invalid input', t => t.throws(fs(2), TypeError));
+test('empty input', t => t.throws(allFiles(), TypeError));
+test('invalid input', t => t.throws(allFiles(2), TypeError));
