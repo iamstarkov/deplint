@@ -37,8 +37,6 @@ function pkgEsDeps(pkg) {
   )(pkg);
 }
 
-const id = R.identity;
-
 // pkgEsDepsTest :: String -> Promise [Object]
 function pkgEsDepsTest(path) {
   return R.pipeP(toPromise,
@@ -46,9 +44,7 @@ function pkgEsDepsTest(path) {
     testFiles,
     R.map(_ => p.join(path, _)),
     R.map(_ => './' + _),
-    deep(R.__, { excludeFn: kit.isThirdParty }),
-    R.tap(console.log),
-    id
+    deep(R.__, { excludeFn: kit.isThirdParty })
   )(path);
 }
 
