@@ -15,7 +15,7 @@ test('pkgEsDeps :: unresolvable', t => t.throws(pkgEsDeps(), TypeError));
 test('pkgEsDeps :: invalid input', t => t.throws(pkgEsDeps(2), TypeError));
 test('pkgEsDeps :: invalid input', t => t.throws(pkgEsDeps(2), TypeError));
 
-test.only('pkgEsDepsTest', async t => {
+test('pkgEsDepsTest', async t => {
   const _ = await pkgEsDepsTest('./fixtures/pkg-es-deps-test/');
   const dep = depMock(['fixtures', 'pkg-es-deps-test']);
   t.deepEqual(_[0], dep(null, null, './test.js'));

@@ -3,6 +3,7 @@ import { allFiles, testFiles } from '../src/fs';
 
 test('allFiles', async t => {
   const _ = await allFiles('./fixtures/fs');
+  t.is(_.length, 9);
   t.deepEqual(_, [
     'components/menu/__test__/menu.js',
     'components/menu/menu.js',

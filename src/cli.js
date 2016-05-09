@@ -2,32 +2,32 @@
 import R from 'ramda';
 import Promise from 'pinkie-promise';
 import { allFiles, testFiles } from './fs';
-import { pkgEsDeps, pkgEsDepsTest } from './pkg-es-deps';
+// import { pkgEsDeps, pkgEsDepsTest } from './pkg-es-deps';
 import kit from 'es-dep-kit';
-import loadJsonFile from 'load-json-file';
-import isBuiltinModule from 'is-builtin-module';
+// import loadJsonFile from 'load-json-file';
+// import isBuiltinModule from 'is-builtin-module';
 
-const log = console.log; // eslint-disable-line
+const log = console.l eslint-disable-line
 const thr = msg => { throw msg; };
 
 Promise.all([
-  loadJsonFile('./package.json'),
   allFiles('./'),
-  testFiles('./'),
-  pkgEsDeps('./package.json'),
-  pkgEsDepsTest('./package.json'),
-]).then(([pkg, allFilesList, testFilesList, deps, depsTestList]) => {
+]).then(([
+  allFilesList,
+]) => {
   // console.log(pkg);
+  /*
   const actualUsedFiles = deps
     .filter(R.either(kit.isEntry, kit.isRequestedLocalFile))
     .filter(kit.isResolved)
     .map(kit._resolved);
+  */
 
   log('Files');
-  log('  Prod', actualUsedFiles.length);
-  log('  Test', testFilesList.length);
-  log('  Overall', allFilesList.length);
+  log('  All ', allFilesList.length);
+  log('  Used', actualUsedFiles.length);
 
+  /*
   const allProdDeps = R.pipe(R.prop('dependencies'), R.keys)(pkg);
   const allDeps = R.pipe(R.props(['d', 'v']), R.mergeAll, R.keys);
   const getModules = R.pipe(
@@ -46,5 +46,6 @@ Promise.all([
   log('Dev Modules');
   log('  Declared', allDeps.length);
   log('  Actual  ', actualUsedModules.length);
+  */
 })
 .catch(thr);
