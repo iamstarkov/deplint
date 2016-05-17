@@ -26,8 +26,8 @@ Promise.all([
 ]) => {
   const existingFiles = _existingFiles.map(_ => path.join(process.cwd(), _));
   const usedFiles = R.union(prodFiles, testFiles);
-  log(usedFiles);
-  log(existingFiles);
+  // log(usedFiles);
+  // log(existingFiles);
   log(`\`${pkgName}\` uses ${usedFiles.length} files out of ${existingFiles.length} existing`);
 })
 .catch(err);
