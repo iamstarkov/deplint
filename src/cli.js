@@ -1,4 +1,5 @@
 /* eslint-disable no-underscore-dangle */
+import path from 'path';
 import R from 'ramda';
 import Promise from 'pinkie-promise';
 import { allFiles } from './fs';
@@ -21,8 +22,9 @@ Promise.all([
   { name: pkgName },
   prodFiles,
   testFiles,
-  existingFiles,
+  _existingFiles,
 ]) => {
+  const existingFiles = _existingFiles.map(_ => path.join(process.cwd(), _));
   const usedFiles = R.union(prodFiles, testFiles);
   log(usedFiles);
   log(existingFiles);
