@@ -6,6 +6,12 @@ import Promise from 'pinkie-promise';
 // toPromise :: a -> Promise a
 const toPromise = Promise.resolve.bind(Promise);
 
+/**
+ * debug mode
+ */
+const log = console.log;
+const id = R.identity;
+
 const excludes = [
   '!package.json',
   '!**/node_modules/**',
@@ -13,12 +19,13 @@ const excludes = [
 ];
 
 // allFiles :: String -> Promise Array[String]
-const allFiles = R.unary(R.pipeP(toPromise,
+const allFiles = entry => R.unary(R.pipeP(toPromise,
   contract('path', String),
   path => globby(R.concat([
     '**/*.{js,json}',
-  ], excludes), { cwd: path })
-));
+  ], excludes), { cwd: path }),
+  id
+))(entry);
 
 // testFiles :: String -> Promise Array[String]
 const testFiles = R.unary(R.pipeP(toPromise,
@@ -28,7 +35,8 @@ const testFiles = R.unary(R.pipeP(toPromise,
     '**/test/*.js',
     '**/*.test.js',
     '**/__test__/*.js',
-  ], excludes), { cwd: path })
+  ], excludes), { cwd: path }),
+  id
 ));
 
 export default { allFiles, testFiles };

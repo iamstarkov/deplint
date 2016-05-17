@@ -24,6 +24,8 @@ Promise.all([
   existingFiles,
 ]) => {
   const usedFiles = R.union(prodFiles, testFiles);
+  log(usedFiles);
+  log(existingFiles);
   log(`\`${pkgName}\` uses ${usedFiles.length} files out of ${existingFiles.length} existing`);
 })
 .catch(err);
