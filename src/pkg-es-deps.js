@@ -22,18 +22,12 @@ const id = R.identity;
 // toPromise :: a -> Promise a
 const toPromise = Promise.resolve.bind(Promise);
 
-// all :: [Promise] -> Promise
-const all = Promise.all.bind(Promise);
-
-
 // pkgEsDeps :: String -> Promise [Object]
 function prod(pkg) {
   return R.pipeP(toPromise,
     contract('pkg', String),
     pkgEntryAndBinResolved,
     deep(R.__, { excludeFn: kit.isThirdParty }),
-    R.filter(kit.isResolved),
-    R.map(kit._resolved),
     id
   )(pkg);
 }
@@ -48,9 +42,6 @@ function dev(path) {
       _ => `./${_}`
     )),
     deep(R.__, { excludeFn: kit.isThirdParty }),
-    R.filter(kit.isResolved),
-    R.filter(R.either(kit.isEntry, kit.isRequestedLocalFile)),
-    R.map(kit._resolved),
     id
   )(path);
 }
