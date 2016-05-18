@@ -27,7 +27,7 @@ const all = Promise.all.bind(Promise);
 
 
 // pkgEsDeps :: String -> Promise [Object]
-function pkgEsDeps(pkg) {
+function prod(pkg) {
   return R.pipeP(toPromise,
     contract('pkg', String),
     pkgEntryAndBinResolved,
@@ -39,7 +39,7 @@ function pkgEsDeps(pkg) {
 }
 
 // pkgEsDepsTest :: String -> Promise [Object]
-function pkgEsDepsTest(path) {
+function dev(path) {
   return R.pipeP(toPromise,
     contract('path', String),
     testFiles,
@@ -55,4 +55,4 @@ function pkgEsDepsTest(path) {
   )(path);
 }
 
-export default { pkgEsDeps, pkgEsDepsTest };
+export default { prod, dev };
