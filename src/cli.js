@@ -8,6 +8,7 @@ import pkgEsDeps from './pkg-es-deps';
 import loadJsonFile from 'load-json-file';
 // import isBuiltinModule from 'is-builtin-module';
 import kit from 'es-dep-kit';
+import reporter from './reporter';
 
 const _declProdModules = R.pipe(R.prop('dependencies'), R.keys);
 const _declDevModules = R.pipe(R.prop('devDependencies'), R.keys);
@@ -48,7 +49,7 @@ Promise.all([
 
   const usedFiles = R.union(prodFiles, devFiles);
   const existingFiles = _existingFiles.map(preCwd);
-  const unusedFiles = R.difference(existingFiles, usedFiles);
+  const unusedFiles = R.difference(existingFiles, usedFiles).map(relativeToCwd);
 
   const prodModules = _modules(prodDeps);
   const devModules = _modules(devDeps);
@@ -69,15 +70,5 @@ Promise.all([
     unusedProdModules,
     unusedDevModules,
   };
-}).then(_ => {
-  log(`\`${_.pkgName}\` uses ${_.usedFiles.length} files out of ${_.existingFiles.length} existing`);
-  log(`\`${_.pkgName}\` uses ${_.prodModules.length} prod modules out of ${_.declaredProdModules.length} declared`);
-  log(`\`${_.pkgName}\` uses ${_.devModules.length} dev modules out of ${_.declaredDevModules.length} declared`);
-  log('Unused Files:');
-  log(_.unusedFiles.map(relativeToCwd).map(_ => `  ✗ ${_}`).join('\n'));
-  log('Unused Prod Modules:');
-  log(_.unusedProdModules.map(_ => `  ✗ ${_}`).join('\n'));
-  log('Unused Dev Modules:');
-  log(_.unusedDevModules.map(_ => `  ✗ ${_}`).join('\n'));
-})
+}).then(reporter)
 .catch(err);
