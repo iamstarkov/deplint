@@ -1,16 +1,18 @@
 /* eslint-disable */
 const log = console.log; // eslint-disable-line
 
-function reporter(_) {
-  log(`\`${_.pkgName}\` uses ${_.usedFiles.length} files out of ${_.existingFiles.length} existing`);
-  log(`\`${_.pkgName}\` uses ${_.prodModules.length} prod modules out of ${_.declaredProdModules.length} declared`);
-  log(`\`${_.pkgName}\` uses ${_.devModules.length} dev modules out of ${_.declaredDevModules.length} declared`);
-  log('Unused Files:');
-  log(_.unusedFiles.map(_ => `  ✗ ${_}`).join('\n'));
-  log('Unused Prod Modules:');
-  log(_.unusedProdModules.map(_ => `  ✗ ${_}`).join('\n'));
-  log('Unused Dev Modules:');
-  log(_.unusedDevModules.map(_ => `  ✗ ${_}`).join('\n'));
+function reporter({ pkgName, files, modules }) {
+  log(`\`${pkgName}\` uses ${files.used.length} files out of ${files.existing.length} existing`);
+  log(`\`${pkgName}\` uses ${modules.used.length} modules out of ${modules.declared.length} declared`);
+
+  if (files.unused.length > 0) {
+    log('Unused Files:');
+    log(files.unused.map(_ => `  ✗ ${_}`).join('\n'));
+  }
+  if (modules.unused.length > 0) {
+    log('Unused Modules:');
+    log(modules.unused.map(_ => `  ✗ ${_}`).join('\n'));
+  }
 }
 
 export default reporter;

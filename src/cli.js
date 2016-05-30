@@ -46,29 +46,23 @@ Promise.all([
   const pkgName = pkg.name;
   const prodFiles = _files(prodDeps);
   const devFiles = _files(devDeps);
-
-  const usedFiles = R.union(prodFiles, devFiles);
-  const existingFiles = _existingFiles.map(preCwd);
-  const unusedFiles = R.difference(existingFiles, usedFiles).map(relativeToCwd);
-
   const prodModules = _modules(prodDeps);
   const devModules = _modules(devDeps);
   const declaredProdModules = _declProdModules(pkg);
   const declaredDevModules = _declDevModules(pkg);
-  const unusedProdModules = R.difference(declaredProdModules, prodModules);
-  const unusedDevModules = R.difference(declaredDevModules, devModules);
 
-  return {
-    pkgName,
-    usedFiles,
-    existingFiles,
-    unusedFiles,
-    prodModules,
-    devModules,
-    declaredProdModules,
-    declaredDevModules,
-    unusedProdModules,
-    unusedDevModules,
+  const files = {
+    used: R.union(prodFiles, devFiles),
+    existing: _existingFiles.map(preCwd),
   };
+  files.unused = R.difference(files.existing, files.used).map(relativeToCwd);
+
+  const modules = {
+    used: R.union(prodModules, devModules),
+    declared: R.union(declaredProdModules, declaredDevModules),
+  };
+  modules.unused = R.difference(modules.declared, modules.used);
+
+  return { pkgName, files, modules };
 }).then(reporter)
 .catch(err);
