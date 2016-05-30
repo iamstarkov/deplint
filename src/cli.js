@@ -16,7 +16,6 @@ const _declDevModules = R.pipe(R.prop('devDependencies'), R.keys);
 const preCwd = _ => path.join(process.cwd(), _);
 
 const log = console.log; // eslint-disable-line
-const err = console.error; // eslint-disable-line
 
 const _files = R.pipe(
   R.filter(kit.isResolved),
@@ -64,5 +63,9 @@ Promise.all([
   modules.unused = R.difference(modules.declared, modules.used);
 
   return { pkgName, files, modules };
-}).then(reporter)
-.catch(err);
+})
+.then(reporter)
+.catch(err => {
+  console.error(err); // eslint-disable-line
+  process.exit(1);
+});
