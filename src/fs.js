@@ -32,9 +32,10 @@ const testFiles = R.unary(R.pipeP(toPromise,
   contract('path', String),
   path => globby(R.concat([
     'test.js',
-    '**/test/*.js',
+    'test-*.js',
+    'test/**/*.js',
+    '**/__tests__/**/*.js',
     '**/*.test.js',
-    '**/__test__/*.js',
   ], excludes), { cwd: path }),
   id
 ));
