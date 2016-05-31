@@ -34,8 +34,8 @@ const testFiles = R.unary(R.pipeP(toPromise,
     'test.js',
     'test-*.js',
     'test/**/*.js',
-    '**/__tests__/**/*.js',
     '**/*.test.js',
+    '**/__{test,tests}__/**/*.js',
   ], excludes), { cwd: path }),
   id
 ));
