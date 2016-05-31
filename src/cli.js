@@ -64,4 +64,5 @@ Promise.all([
 
   return { pkgName, files, modules };
 })
-.then(reporter);
+.then(reporter)
+.catch(console.error); // eslint-disable-line
