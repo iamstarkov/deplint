@@ -22,7 +22,7 @@ function reporter({ pkgName, files, modules }) {
   const shouldFail = unused.length !== 0;
 
   if (shouldFail) {
-    throw new Error(`There ${unused.length} unused dependencies in your project`);
+    process.exitCode = 1;
   }
 }
 

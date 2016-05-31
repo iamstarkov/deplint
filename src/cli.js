@@ -64,8 +64,4 @@ Promise.all([
 
   return { pkgName, files, modules };
 })
-.then(reporter)
-.catch(err => {
-  console.error(err); // eslint-disable-line
-  process.exitCode = 1;
-});
+.then(reporter);
