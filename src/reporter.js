@@ -10,12 +10,12 @@ function reporter({ pkgName, files, modules }) {
   log(`\`${pkgName}\` uses ${modules.used.length} modules out of ${modules.declared.length} declared`);
 
   if (files.unused.length > 0) {
-    log('Unused Files:');
-    log(formatArr(files.unused));
+    // log('Unused Files:');
+    // log(formatArr(files.unused));
   }
   if (modules.unused.length > 0) {
-    log('Unused Modules:');
-    log(formatArr(modules.unused));
+    // log('Unused Modules:');
+    // log(formatArr(modules.unused));
   }
 
   const unused = [].concat(files.unused, modules.unused)
