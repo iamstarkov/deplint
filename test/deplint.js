@@ -6,7 +6,7 @@ const preFixtures = fixturesPath => _ => path.join(process.cwd(), fixturesPath, 
 
 test('sorted-object', async t => {
   const preSortedObject = preFixtures('./fixtures/deplint/sorted-object/');
-  const _ = await deplint(path.resolve(__dirname, './fixtures/deplint/sorted-object/'));
+  const actual = await deplint(path.resolve(__dirname, './fixtures/deplint/sorted-object/'));
   const expected = {
     files: {
       existing: [
@@ -33,6 +33,7 @@ test('sorted-object', async t => {
       ],
       used: [
         'tape',
+        'jshint',
       ],
       unused: [
         'es-dep-kit',
@@ -43,5 +44,11 @@ test('sorted-object', async t => {
     },
   };
 
-  t.deepEqual(_, expected);
+  t.deepEqual(actual.files.existing, expected.files.existing);
+  t.deepEqual(actual.files.used,     expected.files.used);
+  t.deepEqual(actual.files.unused,   expected.files.unused);
+
+  t.deepEqual(actual.modules.declared, expected.modules.declared);
+  t.deepEqual(actual.modules.used,     expected.modules.used);
+  t.deepEqual(actual.modules.unused,   expected.modules.unused);
 });
