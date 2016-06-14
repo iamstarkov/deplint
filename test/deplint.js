@@ -44,9 +44,9 @@ test('sorted-object', async t => {
     },
   };
 
-  t.deepEqual(actual.files.existing, expected.files.existing);
-  t.deepEqual(actual.files.used,     expected.files.used);
-  t.deepEqual(actual.files.unused,   expected.files.unused);
+  t.deepEqual(actual.files.existing,   expected.files.existing);
+  t.deepEqual(actual.files.used,       expected.files.used);
+  t.deepEqual(actual.files.unused,     expected.files.unused);
 
   t.deepEqual(actual.modules.declared, expected.modules.declared);
   t.deepEqual(actual.modules.used,     expected.modules.used);
