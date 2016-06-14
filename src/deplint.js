@@ -6,7 +6,6 @@ import loadJsonFile from 'load-json-file';
 import computation from './computation';
 
 function deplint(root) {
-  console.log(root);
   return Promise.all([
     loadJsonFile(path.join(root, 'package.json')),
     pkgEsDeps.prod(path.join(root, 'package.json')),

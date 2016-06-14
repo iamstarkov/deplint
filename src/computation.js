@@ -24,7 +24,6 @@ const _modules = R.pipe(
 const relativeToCwd = _ => path.relative(process.cwd(), _);
 
 function computation([pkg, prodDeps, devDeps, _existingFiles]) {
-  console.log('COMPUTATION')
   const pkgName = pkg.name;
   const prodFiles = _files(prodDeps);
   const devFiles = _files(devDeps);
