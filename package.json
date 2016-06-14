@@ -65,6 +65,7 @@
     "is-builtin-module": "^1.0.0",
     "load-json-file": "^1.1.0",
     "neat-contract": "^1.0.0",
+    "path-is-absolute": "^1.0.0",
     "pinkie-promise": "^2.0.1",
     "pkg-entry": "^1.0.0",
     "pkg-entry-and-bin-resolved": "^1.0.0",

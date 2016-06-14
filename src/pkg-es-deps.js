@@ -10,6 +10,7 @@ import kit from 'es-dep-kit';
 import pkgEntryAndBinResolved from 'pkg-entry-and-bin-resolved';
 import p from 'path';
 import { testFiles } from './fs';
+import pathIsAbsolute from 'path-is-absolute';
 
 const deep = R.curryN(2, _deep);
 
@@ -39,7 +40,7 @@ function dev(path) {
     testFiles,
     R.map(R.pipe(
       _ => p.join(path, _),
-      _ => `./${_}`
+      R.unless(pathIsAbsolute, _ => `./${_}`)
     )),
     deep(R.__, { excludeFn: kit.isThirdParty }),
     id
