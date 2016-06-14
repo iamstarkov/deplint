@@ -2,6 +2,7 @@ import globby from 'globby';
 import R from 'ramda';
 import contract from 'neat-contract';
 import Promise from 'pinkie-promise';
+import path from 'path';
 
 // toPromise :: a -> Promise a
 const toPromise = Promise.resolve.bind(Promise);
@@ -18,26 +19,27 @@ const excludes = [
   '!**/fixtures/**',
 ];
 
-// allFiles :: String -> Promise Array[String]
-const allFiles = entry => R.unary(R.pipeP(toPromise,
-  contract('path', String),
-  path => globby(R.concat([
+// allFiles :: String -> Promise [String]
+const allFiles = root => R.unary(R.pipeP(toPromise,
+  contract('root', String),
+  () => globby(R.concat([
     '**/*.{js,json}',
-  ], excludes), { cwd: path }),
+  ], excludes), { cwd: root }),
+  R.map(_ => path.join(root, _)),
   id
-))(entry);
+))(root);
 
-// testFiles :: String -> Promise Array[String]
-const testFiles = R.unary(R.pipeP(toPromise,
-  contract('path', String),
-  path => globby(R.concat([
+// testFiles :: String -> Promise [String]
+const testFiles = root => R.unary(R.pipeP(toPromise,
+  contract('root', String),
+  () => globby(R.concat([
     'test.js',
     'test-*.js',
     'test/**/*.js',
     '**/*.test.js',
     '**/__{test,tests}__/**/*.js',
-  ], excludes), { cwd: path }),
+  ], excludes), { cwd: root }),
   id
-));
+))(root);
 
 export default { allFiles, testFiles };
