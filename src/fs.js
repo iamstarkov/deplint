@@ -25,7 +25,7 @@ const allFiles = root => R.unary(R.pipeP(toPromise,
   () => globby(R.concat([
     '**/*.{js,json}',
   ], excludes), { cwd: root }),
-  R.map(_ => path.join(root, _)),
+  R.map(_ => path.join(path.resolve(root), _)),
   id
 ))(root);
 
@@ -39,6 +39,7 @@ const testFiles = root => R.unary(R.pipeP(toPromise,
     '**/*.test.js',
     '**/__{test,tests}__/**/*.js',
   ], excludes), { cwd: root }),
+  R.map(_ => path.join(path.resolve(root), _)),
   id
 ))(root);
 
