@@ -8,12 +8,12 @@ import R from 'ramda';
  *
  * Take "root" argument, resolve it and prepend it with path.join to second "file" argument, curried
  *
+ * @signature preFixtures :: String -> String -> String
  * @example
  *
  *     const prependWithFs = preFixtures('./fixtures/fs');
  *     prependWithFs('index.js'); // /Users/iamstarkov/projects/deplint/test/fixtures/fs/index.js
  */
-// preFixtures -> String -> String -> String
 const preFixtures = R.curry((root, file) => path.join(path.resolve(root), file));
 
 test('allFiles', async t => {
