@@ -38,10 +38,6 @@ function dev(path) {
   return R.pipeP(toPromise,
     contract('path', String),
     testFiles,
-    R.map(R.pipe(
-      _ => p.join(path, _),
-      R.unless(pathIsAbsolute, _ => `./${_}`)
-    )),
     deep(R.__, { excludeFn: kit.isThirdParty }),
     id
   )(path);
