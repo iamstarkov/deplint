@@ -34,7 +34,7 @@ function computation([pkg, prodDeps, devDeps, _existingFiles]) {
 
   const files = {
     used: R.union(prodFiles, devFiles),
-    existing: _existingFiles.map(preCwd),
+    existing: _existingFiles,
   };
   files.unused = R.difference(files.existing, files.used).map(relativeToCwd);
 
