@@ -1,5 +1,7 @@
 # deplint
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/iamstarkov/deplint.svg)](https://greenkeeper.io/)
+
 [![Join the chat at https://gitter.im/iamstarkov/deplint](https://badges.gitter.im/iamstarkov/deplint.svg)](https://gitter.im/iamstarkov/deplint?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 [![NPM version][npm-image]][npm-url]
